@@ -83,6 +83,7 @@ public class AddressBook {
     private static final String MESSAGE_STORAGE_FILE_CREATED = "Created new empty storage file: %1$s";
     private static final String MESSAGE_WELCOME = "Welcome to your Address Book!";
     private static final String MESSAGE_USING_DEFAULT_FILE = "Using default storage file : " + DEFAULT_STORAGE_FILEPATH;
+    private static final String MESSAGE_ADDRESSBOOK_SORTED = "Address Book sorted!";
 
     // These are the prefix strings to define the data type of a command parameter
     private static final String PERSON_DATA_PREFIX_PHONE = "p/";
@@ -127,6 +128,9 @@ public class AddressBook {
     private static final String COMMAND_EXIT_DESC = "Exits the program.";
     private static final String COMMAND_EXIT_EXAMPLE = COMMAND_EXIT_WORD;
 
+    private static final String COMMAND_SORT_WORD = "sort";
+    private static final String COMMAND_SORT_DESC = "Sorts address book by name.";
+    private static final String COMMAND_SORT_EXAMPLE = COMMAND_SORT_WORD;
     private static final String DIVIDER = "===================================================";
 
 
@@ -375,6 +379,8 @@ public class AddressBook {
             return executeClearAddressBook();
         case COMMAND_HELP_WORD:
             return getUsageInfoForAllCommands();
+        case COMMAND_SORT_WORD:
+            return executeSortAddressBook();
         case COMMAND_EXIT_WORD:
             executeExitProgramRequest();
         default:
@@ -560,6 +566,16 @@ public class AddressBook {
     private static String executeClearAddressBook() {
         clearAddressBook();
         return MESSAGE_ADDRESSBOOK_CLEARED;
+    }
+
+    /**
+     * Sorts the address book by name.
+     *
+     * @return feedback display message for the operation result
+     */
+    private static String executeSortAddressBook() {
+        sortAddressBook();
+        return MESSAGE_ADDRESSBOOK_SORTED;
     }
 
     /**
@@ -808,6 +824,13 @@ public class AddressBook {
     private static void clearAddressBook() {
         ALL_PERSONS.clear();
         savePersonsToFile(getAllPersonsInAddressBook(), storageFilePath);
+    }
+
+    /**
+     * Sorts all persons in the address book by name.
+     */
+    private static void sortAddressBook() {
+        Collections.sort(ALL_PERSONS, Comparator.comparing(a -> a.get(PersonProperty.NAME).toLowerCase()));
     }
 
     /**
