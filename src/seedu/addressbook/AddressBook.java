@@ -830,7 +830,7 @@ public class AddressBook {
      * Sorts all persons in the address book by name.
      */
     private static void sortAddressBook() {
-        Collections.sort(ALL_PERSONS, Comparator.comparing(a -> a.get(PersonProperty.NAME).toLowerCase()));
+        ALL_PERSONS.sort(Comparator.comparing(a -> a.get(PersonProperty.NAME).toLowerCase()));
     }
 
     /**
@@ -1104,6 +1104,7 @@ public class AddressBook {
                 + getUsageInfoForViewCommand() + LS
                 + getUsageInfoForDeleteCommand() + LS
                 + getUsageInfoForClearCommand() + LS
+                + getUsageInfoForSortCommand() + LS
                 + getUsageInfoForExitCommand() + LS
                 + getUsageInfoForHelpCommand();
     }
@@ -1145,6 +1146,12 @@ public class AddressBook {
     private static String getUsageInfoForHelpCommand() {
         return String.format(MESSAGE_COMMAND_HELP, COMMAND_HELP_WORD, COMMAND_HELP_DESC)
                 + String.format(MESSAGE_COMMAND_HELP_EXAMPLE, COMMAND_HELP_EXAMPLE);
+    }
+
+    /** Returns string for showing 'sort' command usage instruction */
+    private static String getUsageInfoForSortCommand() {
+        return String.format(MESSAGE_COMMAND_HELP, COMMAND_SORT_WORD, COMMAND_SORT_DESC)
+                + String.format(MESSAGE_COMMAND_HELP_EXAMPLE, COMMAND_SORT_EXAMPLE);
     }
 
     /** Returns the string for showing 'exit' command usage instruction */
